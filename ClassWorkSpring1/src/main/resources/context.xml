@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<bean id="hero" class="academy.mate.Hero">
+		<constructor-arg index="1" ref="item" />
+		<constructor-arg index="0" value="Pudge" />
+	</bean>
+
+	<bean id="item" class="academy.mate.Item">
+		<property name="name" value="Boots of Glory" />
+	</bean>
+</beans>
