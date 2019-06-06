@@ -2,6 +2,7 @@ package mate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +10,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UglyCatRestClient {
 
@@ -34,12 +37,25 @@ public class UglyCatRestClient {
     private UglyCatRestClient() {
     }
 
-    public String sendRequest(String url, String method, String data) {
+    public <T> T sendRequest(Class<?> clazz, String url, String method, String json, Map<String, String> params) throws IOException {
 
-        StringBuffer response = null;
-
+        StringBuffer response = new StringBuffer();
+        StringBuffer request = new StringBuffer();
+        ObjectReader objectReader = null;
         URL urlObj = null;
         BufferedReader in = null;
+
+        if (params != null) {
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                System.out.println(key + " = " + value);
+                request.append(key + "=" + value + "&");
+            }
+            url += "?" + request.toString();
+        }
+
+
         try {
             urlObj = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) urlObj.openConnection();
@@ -48,9 +64,9 @@ public class UglyCatRestClient {
             connection.setDoOutput(true);
             connection.setDoInput(true);
 
-            if (data != null) {
+            if (json != null) {
                 try (OutputStream os = connection.getOutputStream()) {
-                    byte[] input = data.getBytes("utf-8");
+                    byte[] input = json.getBytes("utf-8");
                     os.write(input, 0, input.length);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
@@ -59,12 +75,13 @@ public class UglyCatRestClient {
 
             in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String inputLine;
-            response = new StringBuffer();
 
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
             System.out.println("Success. Response = " + response);
+
+            objectReader = objectMapper.readerFor(clazz);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -75,22 +92,23 @@ public class UglyCatRestClient {
                 e.printStackTrace();
             }
         }
-        return response.toString();
+
+        return objectReader.readValue(response.toString());
+
     }
 
-    public Flea getFlea(int id){
-        String url = HOST + GET_FLEA + "?id=" + id;
-        DataOneFlea dataOneFlea = null;
-        try {
-            dataOneFlea = objectMapper.readValue(sendRequest(url, "GET", null), DataOneFlea.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Flea flea = dataOneFlea.getUglycat_flea();
-        return flea;
+    public DataOneFlea getFlea(int id) throws IOException {
+
+        String url = HOST + GET_FLEA;
+
+        Map<String, String> params = new HashMap<>();
+        params.put("id", String.valueOf(id));
+
+        return sendRequest(DataOneFlea.class, url, "GET", null, params);
     }
 
-    public void addFlea(Flea flea) {
+
+    public DataOneFlea addFlea(Flea flea) throws IOException {
         String json = null;
         try {
             json = objectMapper.writeValueAsString(flea);
@@ -98,7 +116,8 @@ public class UglyCatRestClient {
             e.printStackTrace();
         }
         String url = HOST + ADD_FLEA;
-        sendRequest(url, "POST", json);
+
+        return sendRequest(DataOneFlea.class, url, "POST", json, null);
     }
 }
 
