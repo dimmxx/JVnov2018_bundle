@@ -5,18 +5,22 @@ import java.util.Objects;
 public class Node {
 
     private int key;
-    private int hash;
     private String value;
+    private int hash;
 
 
-
-
-
-
-    public Node(int key, String value, int arrayLength) {
+    public Node(int key, String value) {
         this.key = key;
         this.value = value;
+        hash = calcHash(key);
     }
+
+    public int calcHash(Integer key) {
+        int h = key.hashCode();
+        h ^= (h >>> 20) ^ (h >>> 12);
+        return h ^ (h >>> 7) ^ (h >>> 4);
+    }
+
 
     public int getKey() {
         return key;
@@ -47,6 +51,7 @@ public class Node {
         return "Node{" +
                 "key=" + key +
                 ", value='" + value + '\'' +
+                ", hash=" + hash +
                 '}';
     }
 }
