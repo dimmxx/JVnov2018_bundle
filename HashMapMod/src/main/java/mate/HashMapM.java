@@ -4,10 +4,9 @@ public class HashMapM {
 
     private int capacity;
     private Node[] array;
-    private int size = 0;
+    private double size;
     private double loadFactor;
-
-
+    
     public HashMapM() {
         capacity = 16;
         loadFactor = 0.75;
@@ -21,6 +20,7 @@ public class HashMapM {
     }
 
     public boolean put(int key, String value) {
+        ensureCapacity();
         Node node = new Node(key, value);
         int index = getIndex(node.getHash(), array.length);
         array[index] = node;
@@ -35,9 +35,22 @@ public class HashMapM {
         } else{
             return hash & (length - 1);
         }
-
     }
 
+    private void ensureCapacity() {
+        double sizeThreshold = capacity * loadFactor;
+        if (size >= sizeThreshold) {
+            System.out.println("Resize: " + size + "/" + sizeThreshold);
+            Node[] arrayNew = new Node[capacity * 2];
+
+            for (int i = 0; i < array.length; i++) {
+                if (array[i] != null) {
+                    arrayNew[getIndex(array[i].getHash(), arrayNew.length)] = array[i];
+                }
+            }
+            array = arrayNew;
+        }
+    }
 
     public void printOutMap() {
         for (int i = 0; i < array.length; i++) {

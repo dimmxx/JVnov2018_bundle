@@ -15,7 +15,7 @@ public class Node {
         hash = calcHash(key);
     }
 
-    public int calcHash(Integer key) {
+    private int calcHash(Integer key) {
         int h = key.hashCode();
         h ^= (h >>> 20) ^ (h >>> 12);
         return h ^ (h >>> 7) ^ (h >>> 4);
