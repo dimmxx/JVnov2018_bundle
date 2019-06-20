@@ -31,9 +31,24 @@ public class HashMapM<K, V> {
         } else {
             Node<K, V> nodeTemp = array[index];
 
-            while (nodeTemp.getNext() != null){
+            if(nodeTemp.getNext() == null){
+                if(nodeTemp.getKey() == node.getKey()){
+                    node.setNext(nodeTemp.getNext());
+                    nodeTemp = node;
+                }
+            }
+
+
+            while (nodeTemp.getNext() != null) {
                 nodeTemp = nodeTemp.getNext();
             }
+
+
+
+
+
+
+
 
             nodeTemp.setNext(node);
             entryQuantity++;
