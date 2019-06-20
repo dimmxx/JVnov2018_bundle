@@ -1,12 +1,13 @@
 package mate;
 
-public class HashMapM {
+public class HashMapM<K, V> {
 
     private int capacity;
-    private Node[] array;
+    private Node<K, V>[] array;
     private double size;
+    private int entryQuantity;
     private double loadFactor;
-    
+
     public HashMapM() {
         capacity = 16;
         loadFactor = 0.75;
@@ -19,20 +20,32 @@ public class HashMapM {
         array = new Node[capacity];
     }
 
-    public boolean put(int key, String value) {
+    public boolean put(K key, V value) {
         ensureCapacity();
-        Node node = new Node(key, value);
+        Node<K, V> node = new Node(key, value);
         int index = getIndex(node.getHash(), array.length);
-        array[index] = node;
-        size++;
-        System.out.println(node);
+        if (array[index] == null) {
+            array[index] = node;
+            size++;
+            entryQuantity++;
+        } else {
+            Node<K, V> nodeTemp = array[index];
+
+            while (nodeTemp.getNext() != null){
+                nodeTemp = nodeTemp.getNext();
+            }
+
+            nodeTemp.setNext(node);
+            entryQuantity++;
+        }
+        System.out.println(node + "index = " + index);
         return true;
     }
 
     private int getIndex(int hash, int length) {
-        if(hash == 0){
+        if (hash == 0) {
             return 0;
-        } else{
+        } else {
             return hash & (length - 1);
         }
     }
@@ -41,7 +54,7 @@ public class HashMapM {
         double sizeThreshold = capacity * loadFactor;
         if (size >= sizeThreshold) {
             System.out.println("Resize: " + size + "/" + sizeThreshold);
-            Node[] arrayNew = new Node[capacity * 2];
+            Node<K, V>[] arrayNew = new Node[capacity *= 2];
             for (int i = 0; i < array.length; i++) {
                 if (array[i] != null) {
                     arrayNew[getIndex(array[i].getHash(), arrayNew.length)] = array[i];
@@ -50,6 +63,13 @@ public class HashMapM {
             array = arrayNew;
         }
     }
+
+    public boolean ensureCollision(Node<K, V> node) {
+
+
+        return false;
+    }
+
 
     public void printOutMap() {
         for (int i = 0; i < array.length; i++) {
