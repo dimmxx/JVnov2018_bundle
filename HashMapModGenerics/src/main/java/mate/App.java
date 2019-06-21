@@ -6,9 +6,10 @@ public class App {
         HashMapM<Integer, String> hm = new HashMapM();
 
 
-        hm.put(5, "two");
-        hm.put(5, "six");
-        //hm.put(7, "seven");
+        hm.put(2, "two");
+        hm.put(6, "six");
+        hm.put(7, "seven");
+        hm.put(2, "new two");
 
 
 //        for(int i = 1; i < 15; i++) {

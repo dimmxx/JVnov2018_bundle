@@ -28,34 +28,35 @@ public class HashMapM<K, V> {
             array[index] = node;
             size++;
             entryQuantity++;
-        } else {
-            Node<K, V> nodeTemp = array[index];
-
-            if(nodeTemp.getNext() == null){
-                if(nodeTemp.getKey() == node.getKey()){
-                    node.setNext(nodeTemp.getNext());
-                    nodeTemp = node;
-                }
-            }
-
-
-            while (nodeTemp.getNext() != null) {
-                nodeTemp = nodeTemp.getNext();
-            }
-
-
-
-
-
-
-
-
-            nodeTemp.setNext(node);
-            entryQuantity++;
-        }
-        System.out.println(node + "index = " + index);
+        } else processChain(node, index);
         return true;
     }
+
+
+    private void processChain(Node<K, V> node, int index){
+
+        Node<K, V> nodeTemp = array[index];
+        int chainLength = 0;
+        do{
+            chainLength++;
+            nodeTemp = nodeTemp.getNext();
+        }while (nodeTemp != null);
+        nodeTemp = array[index];
+        for (int i = 0; i < chainLength; i++){
+            if(nodeTemp.getKey().equals(node.getKey())){
+                nodeTemp.setValue(node.getValue());
+                break;
+            }
+            if(i == chainLength - 1){
+                nodeTemp.setNext(node);
+                break;
+            }
+            nodeTemp = nodeTemp.getNext();
+        }
+    }
+
+
+
 
     private int getIndex(int hash, int length) {
         if (hash == 0) {
