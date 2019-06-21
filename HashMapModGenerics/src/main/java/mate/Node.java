@@ -13,7 +13,7 @@ public class Node <K, V>{
     public Node(K key, V value) {
         this.key = key;
         this.value = value;
-        hash = calcHash(key);
+        hash = hashKey(key);
     }
 
 //    private int calcHash(K key) {
@@ -22,8 +22,12 @@ public class Node <K, V>{
 //        return h ^ (h >>> 7) ^ (h >>> 4);
 //    }
 
-        private int calcHash(K key) {
+        public  int calcHash(K key) {
 
+        return 4;
+    }
+
+    public static <K> int hashKey(K key){
         return 4;
     }
 

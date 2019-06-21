@@ -32,31 +32,55 @@ public class HashMapM<K, V> {
         return true;
     }
 
+    public V get(K key) {
+        int index = getIndex(Node.hashKey(key), array.length);
+        if (array[index].getKey().equals(key)) {
+            return array[index].getValue();
+        }
+        if (array[index].getNext() == null) {
+            return null;
+        } else {
+            Node<K, V> nodeTemp = array[index];
+            int chainLength = 0;
+            do {
+                chainLength++;
+                nodeTemp = nodeTemp.getNext();
+            } while (nodeTemp != null);
+            nodeTemp = array[index].getNext();
 
-    private void processChain(Node<K, V> node, int index){
+            for(int i = 0; i < chainLength - 1; i++){
+                if(nodeTemp.getKey().equals(key)){
+                    return nodeTemp.getValue();
+                }
+                nodeTemp =nodeTemp.getNext();
+            }
+        }
+        return null;
+    }
+
+
+    private void processChain(Node<K, V> node, int index) {
 
         Node<K, V> nodeTemp = array[index];
         int chainLength = 0;
-        do{
+        do {
             chainLength++;
             nodeTemp = nodeTemp.getNext();
-        }while (nodeTemp != null);
+        } while (nodeTemp != null);
         nodeTemp = array[index];
-        for (int i = 0; i < chainLength; i++){
-            if(nodeTemp.getKey().equals(node.getKey())){
+        for (int i = 0; i < chainLength; i++) {
+            if (nodeTemp.getKey().equals(node.getKey())) {
                 nodeTemp.setValue(node.getValue());
                 break;
             }
-            if(i == chainLength - 1){
+            if (i == chainLength - 1) {
                 nodeTemp.setNext(node);
+                entryQuantity++;
                 break;
             }
             nodeTemp = nodeTemp.getNext();
         }
     }
-
-
-
 
     private int getIndex(int hash, int length) {
         if (hash == 0) {
@@ -69,7 +93,6 @@ public class HashMapM<K, V> {
     private void ensureCapacity() {
         double sizeThreshold = capacity * loadFactor;
         if (size >= sizeThreshold) {
-            System.out.println("Resize: " + size + "/" + sizeThreshold);
             Node<K, V>[] arrayNew = new Node[capacity *= 2];
             for (int i = 0; i < array.length; i++) {
                 if (array[i] != null) {
@@ -80,18 +103,9 @@ public class HashMapM<K, V> {
         }
     }
 
-    public boolean ensureCollision(Node<K, V> node) {
-
-
-        return false;
-    }
-
-
     public void printOutMap() {
         for (int i = 0; i < array.length; i++) {
             System.out.println(i + ". " + array[i]);
         }
     }
-
-
 }

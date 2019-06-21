@@ -3,13 +3,18 @@ package mate;
 public class App {
     public static void main(String[] args) {
 
-        HashMapM<Integer, String> hm = new HashMapM();
+        HashMapM<String, String> hm = new HashMapM();
 
 
-        hm.put(2, "two");
-        hm.put(6, "six");
-        hm.put(7, "seven");
-        hm.put(2, "new two");
+
+        hm.put("1", "1");
+        hm.put("2", "2");
+        hm.put("3", "3");
+        hm.put("4", "4");
+
+//        hm.put(6, "six");
+//        hm.put(7, "seven");
+//        hm.put(2, "new two");
 
 
 //        for(int i = 1; i < 15; i++) {
@@ -18,6 +23,8 @@ public class App {
 
 
         hm.printOutMap();
+
+        System.out.println(hm.get("3"));
 
 
     }
