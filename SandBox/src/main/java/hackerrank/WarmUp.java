@@ -12,45 +12,78 @@ public class WarmUp {
 
     public static void main(String[] args) {
 
-        String s = "UDDDUDUU";
+       int[] c = {0, 0, 1, 0, 0, 1, 0};
 
-        System.out.println(countingValleys(s.length(), s));
+        System.out.println(jumpingOnClouds(c));
+    }
+
+
+
+    static int jumpingOnClouds(int[] c) {
+
+        int move = 0;
+        int step = 2;
+
+        for(int i = 0; i < c.length; i += step){
+
+            step = 2;
+
+            if(i == c.length - 2) step = 1;
+
+            if (c[i + 2] == 1){
+                step = 1;
+            }
+
+            move++;
+
+        }
+
+        return move;
+
 
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     static int countingValleys(int n, String s) {
-
         int level = 0;
-        int countValley = 0;
+        int previousLevel;
+        int crossSeaLevel = 0;
         boolean inValley = false;
-        //UDDDUDUU
-        for(int i = 0; i < s.length(); i++){
+        boolean seaLineCrossed = false;
 
-            if(level < 0){
-                inValley = true;
-            } else inValley = false;
+        for(int i = 0; i < s.length(); i++) {
 
+            previousLevel = level;
             char symbol = s.charAt(i);
-
-            switch (symbol){
+            switch (symbol) {
                 case 'U':
                     level += 1;
                     break;
-                case  'D':
+                case 'D':
                     level -= 1;
             }
-            System.out.print(":" + level);
-
-            if(!inValley & level >= 0) countValley++;
-
-
-
-
+            if (previousLevel == 0 & level < previousLevel) crossSeaLevel++;
         }
-
-        return countValley;
-
+        return crossSeaLevel;
     }
 
 
@@ -69,8 +102,6 @@ public class WarmUp {
         }
         return sockCounter;
     }
-
-
 }
 
 
