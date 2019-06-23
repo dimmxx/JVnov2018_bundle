@@ -12,56 +12,49 @@ public class WarmUp {
 
     public static void main(String[] args) {
 
-       int[] c = {0, 0, 1, 0, 0, 1, 0};
-
-        System.out.println(jumpingOnClouds(c));
+      
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
     static int jumpingOnClouds(int[] c) {
-
         int move = 0;
         int step = 2;
-
         for(int i = 0; i < c.length; i += step){
-
             step = 2;
-
-            if(i == c.length - 2) step = 1;
-
+            if(i >= c.length - 1){
+                break;
+            }
+            if(i == c.length - 2){
+                move++;
+                break;
+            }
             if (c[i + 2] == 1){
                 step = 1;
             }
-
             move++;
-
         }
-
         return move;
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     static int countingValleys(int n, String s) {
         int level = 0;
