@@ -12,44 +12,46 @@ public class WarmUp {
 
     public static void main(String[] args) {
 
-        String s = "abcac";
-        long n = 10;
-
-        System.out.println(repeatedString(s, n));
+        int[] a = {1, 2, 3, 4, 5};
 
 
+        System.out.println(Arrays.toString(rotLeft(a, 4)));
+
+    }
 
 
+    static int[] rotLeft(int[] a, int d) {
 
+
+        for (int i = 0; i < d; i++) {
+            int temp = a[0];
+
+            for (int j = 0; j < a.length - 1; j++) {
+                a[j] = a[j + 1];
+            }
+            a[a.length - 1] = temp;
+
+        }
+
+
+        return a;
     }
 
 
     static long repeatedString(String s, long n) {
-
-        long base = n/s.length()*countA(s);
-
+        long base = n / s.length() * countA(s);
         long surplus = n % s.length();
-
-        int tail = countA(s.substring(0, (int)surplus));
-
-
-
-
-        return base;
+        long tail = countA(s.substring(0, (int) surplus));
+        return base + tail;
     }
-    
 
-
-
-    static long countA(String word){
+    static long countA(String word) {
         long counter = 0;
-        for(int i = 0; i < word.length(); i++){
-            if(word.charAt(i) == 'a') counter++;
+        for (int i = 0; i < word.length(); i++) {
+            if (word.charAt(i) == 'a') counter++;
         }
         return counter;
     }
-
-
 
     static int jumpingOnClouds(int[] c) {
         int move = 0;
@@ -93,7 +95,6 @@ public class WarmUp {
         }
         return crossSeaLevel;
     }
-
 
     static int sockMerchant(int n, int[] ar) {
         int sockCounter = 0;
