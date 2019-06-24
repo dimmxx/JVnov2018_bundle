@@ -12,43 +12,58 @@ public class WarmUp {
 
     public static void main(String[] args) {
 
-      
+        String s = "abcac";
+        long n = 10;
+
+        System.out.println(repeatedString(s, n));
+
+
+
+
+
     }
 
 
+    static long repeatedString(String s, long n) {
+
+        long base = n/s.length()*countA(s);
+
+        long surplus = n % s.length();
+
+        int tail = countA(s.substring(0, (int)surplus));
 
 
 
 
+        return base;
+    }
+    
 
 
 
-
-
-
-
-
-
-
-
-
-
+    static long countA(String word){
+        long counter = 0;
+        for(int i = 0; i < word.length(); i++){
+            if(word.charAt(i) == 'a') counter++;
+        }
+        return counter;
+    }
 
 
 
     static int jumpingOnClouds(int[] c) {
         int move = 0;
         int step = 2;
-        for(int i = 0; i < c.length; i += step){
+        for (int i = 0; i < c.length; i += step) {
             step = 2;
-            if(i >= c.length - 1){
+            if (i >= c.length - 1) {
                 break;
             }
-            if(i == c.length - 2){
+            if (i == c.length - 2) {
                 move++;
                 break;
             }
-            if (c[i + 2] == 1){
+            if (c[i + 2] == 1) {
                 step = 1;
             }
             move++;
@@ -63,7 +78,7 @@ public class WarmUp {
         boolean inValley = false;
         boolean seaLineCrossed = false;
 
-        for(int i = 0; i < s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
 
             previousLevel = level;
             char symbol = s.charAt(i);
