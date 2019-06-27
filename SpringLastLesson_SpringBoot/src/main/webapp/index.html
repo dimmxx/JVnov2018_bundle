@@ -1,0 +1,50 @@
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js">
+    </script>
+</head>
+
+<body>
+<h2>Hello World!</h2>
+
+<input type="text" id = "name">
+<input type="button" value="GET PUDGE" onclick="getPudge()"/>
+<input type="button" value="ADD PUDGE" onclick="addPudge()"/>
+
+
+</body>
+
+<script>
+
+    function addPudge() {
+        var name = document.getElementById("name").value;
+        var obj = {"name":name,"level":12};
+
+    $.ajax({
+        type: "POST",
+        url: "/pudgeservice/add",
+        data: JSON.stringify(obj),
+        dataType: "json",
+        contentType: "application/json",
+        success: function (msg) {
+            //alert(msg.name + " " + msg.level);
+        },
+    });
+    }
+
+
+
+    function getPudge() {
+        var name = document.getElementById("name").value;
+    $.ajax({
+        type: "GET",
+        url: "/pudgeservice/" + name,
+        success: function (msg) {
+            alert(msg.name + " " + msg.level);
+        },
+    });
+    }
+</script>
+
+
+</html>
