@@ -1,5 +1,5 @@
 #!/bin/bash
 
 git add *
-git commit -m "$(pwd) $(date)"
+git commit -m "$(date)"
 git push origin master
