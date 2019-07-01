@@ -75,8 +75,21 @@ OperationVariable operationVariable2 = () -> {
         System.out.println(operationVariable.getResult());
         System.out.println(operationVariable1.getResult());
         System.out.println(operationVariable2.getResult());
-        
+
+//====================================================================
+
+        OperationGeneric<Integer> operationGeneric = (value1, value2) -> value1 + value2;
+        System.out.println(operationGeneric.getResult(3, 5));
+
+        OperationGeneric<String> operationGenericString = (value1, value2) -> value1 + value2;
+        System.out.println(operationGenericString.getResult("Hello ", "World!"));
+
     }
+
+
+
+
+
 
 
 }
