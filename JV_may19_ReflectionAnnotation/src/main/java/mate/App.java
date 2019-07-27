@@ -1,16 +1,13 @@
 package mate;
 
 import mate.controller.ConsoleHandler;
-import mate.dao.BetDao;
-import mate.dao.BetDaoImpl;
-import mate.factory.BetDaoFactory;
+import mate.dao.BetDaoBetImpl;
+import mate.dao.BetDaoBetInterface;
+import mate.dao.BetDaoUserImpl;
+import mate.dao.BetDaoUserInterface;
 import mate.lib.Inject;
 import mate.lib.Injector;
 
-/**
- * Hello world!
- *
- */
 public class App{
 
     static{
@@ -22,7 +19,9 @@ public class App{
     }
 
     @Inject
-    private static BetDao betDao;
+    private static BetDaoBetInterface betDaoBet;
+
+    private static BetDaoUserInterface betDaoUser = new BetDaoUserImpl();
 
     public static void main( String[] args ){
 
@@ -31,7 +30,8 @@ public class App{
         ConsoleHandler handler = new ConsoleHandler();
         handler.handle();
 
-        System.out.println(betDao.getAll());
+        System.out.println(betDaoBet.getAll());
+        System.out.println(betDaoUser.getAll());
 
     }
 }

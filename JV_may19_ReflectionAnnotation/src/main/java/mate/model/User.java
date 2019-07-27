@@ -1,6 +1,6 @@
 package mate.model;
 
-public class User implements Model{
+public class User {
 
     private String name;
 

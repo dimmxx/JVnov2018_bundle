@@ -1,6 +1,6 @@
 package mate.model;
 
-public class Bet implements Model{
+public class Bet {
 
     private int value;
 
