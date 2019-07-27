@@ -21,7 +21,8 @@ public class App{
     @Inject
     private static BetDaoBetInterface betDaoBet;
 
-    private static BetDaoUserInterface betDaoUser = new BetDaoUserImpl();
+    @Inject
+    private static BetDaoUserInterface betDaoUser;
 
     public static void main( String[] args ){
 

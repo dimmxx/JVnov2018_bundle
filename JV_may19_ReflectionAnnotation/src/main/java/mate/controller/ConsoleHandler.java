@@ -18,7 +18,8 @@ public class ConsoleHandler {
     @Inject
     private static BetDaoBetInterface betDaoBet;
 
-    private static BetDaoUserInterface betDaoUser = new BetDaoUserImpl();
+    @Inject
+    private static BetDaoUserInterface betDaoUser;
 
      public void handle(){
         Scanner scanner = new Scanner(System.in);
