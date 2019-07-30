@@ -26,7 +26,7 @@ public class App{
 
     public static void main( String[] args ){
 
-        System.out.println( "Если хотите сделать ставку, \nвведите сумму и риск через пробел:" );
+        System.out.println( "Если хотите сделать ставку, \nвведите сумму, риск и пользователя через пробел:" );
 
         ConsoleHandler handler = new ConsoleHandler();
         handler.handle();
