@@ -1,0 +1,44 @@
+10. Given the following code in Java:
+interface I {
+	void op();
+}
+class A implements I {
+	public void op() { System.out.print("a"); }
+}
+class B extends A {
+	public void op() { System.out.print("b"); }
+}
+class C implements I {
+	protected A a;
+	public C(A a) { this.a = a; }
+	public void op() {
+		System.out.print("c");
+		a.op();
+	}
+}
+class D extends C {
+	public D(A a) { super(a); }
+	public void op() {
+		System.out.print("d");
+		a.op();
+	}
+}
+class M {
+	public void opi(I... i) {
+		for (I x : i)
+			x.op();
+	}
+	public static void main(String[] args) {
+		A o1 = new B();
+		B o2 = new B();
+		C o3 = new C(o1);
+		D o4 = new D(o2);
+		new M().opi(o1, o2, o3, o4);
+	}
+}
+After running this code the output is:
+(a) abcd
+(b) abcadb
+(c) bbcbdb
+(d) bbcd
+(e) abcbdb
