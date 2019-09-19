@@ -1,0 +1,14 @@
+9. Given the following code in Java:
+public class El<T> {
+	private T data;
+	private El**1** next;
+	public El(**2**) {data = d;}
+	public void add(**2**) {next = new **3**;}
+}
+What has to be replaced for **1**, **2**, **3** to make method add() associate property next with the current property where all elements are assumed to have the same generic type?
+(a) **1**: <T> **2**: T d **3**: El<T>(d)
+(b) **1**: <T> **2**: <T> d **3**: El<T>(d)
+(c) **1**: <T> **2**: <T> d **3**: El(<T> d)
+(d) **1**: **2**: d **3**: El<d>(d)
+(e) **1**: <data> **2**: data d **3**: El<data>(d)
+

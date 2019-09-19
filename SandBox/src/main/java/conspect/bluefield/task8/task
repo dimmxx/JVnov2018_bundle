@@ -1,0 +1,20 @@
+8. Given the following code in Java:
+abstract class A {
+	int i = 0;
+	public abstract void m();
+}
+class X extends A {
+	public void m(){i--;}
+}
+class Y extends X {
+	public void m(){i++;}
+}
+After execution of the following instructions:
+A o=new X();
+o.m();
+((X) o).m();
+((A) o).m();
+(a) attribute i will have value 3
+(b) attribute i will have value -3
+(c) there will be thrown error at the last line
+(d) attribute i will have value 1

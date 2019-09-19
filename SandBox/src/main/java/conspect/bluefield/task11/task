@@ -1,0 +1,23 @@
+11. Given the following code in Java:
+abstract class A {
+}
+class X extends A {
+}
+class Y extends X {
+}
+class M {
+	static void m(Class<? extends A> T, A... o) {
+		for (A e : o)
+			if (T.isInstance(e))
+				System.out.print("a");
+	}
+	public static void main(String... args) {
+		m(X.class, new A[]{new X(), new Y()});
+	}
+}
+After running this code the output is:
+(a) a
+(b) exception is thrown
+(c) aaa
+(d) aa
+(e) no output
