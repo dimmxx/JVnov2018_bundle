@@ -1,10 +1,12 @@
 package conspect.network.simpleserver;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
 
 public class SimpleServer {
 
@@ -17,11 +19,12 @@ public class SimpleServer {
             try(InputStream inputStream = socket.getInputStream();
                 OutputStream outputStream = socket.getOutputStream()){
 
-                byte[] request = HttpUtils.
+                byte[] request = HttpUtils.readRequestFully(inputStream);
+                byte[] response = new Date().toString().getBytes();
+                outputStream.write(response);
 
-            } catch (){
-
-            }finally {
+            }
+            finally {
                 socket.close();
             }
 
