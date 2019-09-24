@@ -1,15 +1,16 @@
 package conspect.stream.inputstream_test;
 
 import java.io.*;
+import java.util.Arrays;
 
 public class App {
 
     public static void main(String[] args) throws IOException {
 
-//        while (true){
-//            Integer x = System.in.read();
-//            System.out.println(Integer.toString(x, 2));
-//        }
+        while (true){
+            Integer x = System.in.read();
+            System.out.println(Integer.toString(x, 2));
+        }
 
 //        InputStreamReader inputStreamReader = new InputStreamReader(System.in);
 //        while (true){
@@ -37,15 +38,20 @@ public class App {
 //            fos.write(x);
 //        }
         
-        byte[] array = new byte[]{1,2,3,4,5,6,7,8,9,0};
-        ByteArrayInputStream bais = new ByteArrayInputStream(array);
-        ByteArrayOutputStream result = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int length;
-        while ((length = bais.read(buffer)) != -1) {
-            result.write(buffer, 0, length);
-        }
-        System.out.println(result.toString());
+//        char[] array = new char[]{'a','b','c','d','e'};
+//        ByteArrayInputStream bais = new ByteArrayInputStream(array);
+//        ByteArrayOutputStream result = new ByteArrayOutputStream();
+//
+//        InputStreamReader inputStreamReader = new InputStreamReader(bais);
+//        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(result);
+//
+//        char[] buffer = new char[1024];
+//        char[] output = new char[1024];
+//        int length;
+//        while (inputStreamReader.read(buffer) != -1) {
+//            outputStreamWriter.write(output);
+//        }
+//        System.out.println(Arrays.toString(output));
 
 
     }
