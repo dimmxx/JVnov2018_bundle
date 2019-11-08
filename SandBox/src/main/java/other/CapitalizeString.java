@@ -4,7 +4,7 @@ public class CapitalizeString {
 
     public static void main(String[] args) {
 
-        String line = "i jvjj  c mmjd m mm m m n";
+        String line = "ikkdurbby jvjj  c mmjd m mm m m n";
 
     }
 
@@ -12,10 +12,13 @@ public class CapitalizeString {
 
         char[] array = line.toCharArray();
 
-        for(int i = 0; i < array.length; i++){
-            for (int j = n)
-            if(array[i] != ' '){
+        boolean isWord = true;
 
+        for(int i = 0; i < array.length; i++){
+            if(array[i] == ' '){
+                continue;
+            }else {
+                
             }
 
 

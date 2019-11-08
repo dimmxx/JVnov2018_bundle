@@ -4,15 +4,13 @@
         <Property name="basePath">src/main/resources/log</Property>
     </Properties>
 
-
-
     <Appenders>
     <Console name="Console" target="SYSTEM_OUT">
       <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
     </Console>
 
       <RollingFile name="File" fileName="${basePath}/app-info.log" filePattern="${basePath}/app-info-%d{yyyy-MM-dd-HH-mm-ss}.log">
-            <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <LevelRangeFilter minLevel="error" maxLevel="trace" onMatch="ACCEPT" onMismatch="DENY"/>
           <PatternLayout>
                 <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] [%c{1}] [%M] - %msg%n</pattern>
             </PatternLayout>
@@ -21,18 +19,17 @@
             </Policies>
         </RollingFile>
 
-
   </Appenders>
 
   <Loggers>
-
       <Logger name="conspect.logging.log1.Printer" level="trace" additivity="false">
       <AppenderRef ref="File"/>
     </Logger>
 
-      <Root level="Error">
-      <AppenderRef ref="Console"/>
-    </Root>
+      <Root level="trace" additivity="false">
+            <AppenderRef ref="Console" />
+          <AppenderRef ref="File" />
+      </Root>
 
   </Loggers>
 
